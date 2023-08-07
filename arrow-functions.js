@@ -466,9 +466,160 @@ const codingStudents = [
     }
 ];
 
-const candidates = codingStudents.filter(student => {
-    let strongSkills = student.skills.filter(skill => skill.yearsExperience >= 5);
-    return strongSkills.length > 0;
-} );
+// const candidates = codingStudents.filter(student => {
+//     let strongSkills = student.skills.filter(skill => skill.yearsExperience >= 5);
+//     return strongSkills.length > 0;
+// } );
 
+// console.log(candidates);
+
+
+///.     or.    ..  //
+
+// *********** It can also be written like this ********** //
+
+
+const has5yearsExperience = skill => skill.yearsExperience >= 5;
+const hasStrongSkills = student => student.skills.filter(has5yearsExperience).length > 0;
+const candidates = codingStudents.filter(hasStrongSkills);
 console.log(candidates);
+
+
+// filter method Challenge  ///
+
+let challengeStudents = [
+    {
+        name: 'John',
+        subjects: ['maths', 'english', 'cad'],
+        teacher: {maths: 'Harry', english: 'Joan', cad: 'Paul'},
+        results: {maths: 90, english: 75, cad: 87},
+    },
+    {
+        name: 'Emily',
+        subjects: ['science', 'english', 'art'],
+        teacher: {science: 'Iris', english: 'Joan', art: 'Simon'},
+        results: {science: 93, english: 80, art: 95},
+    },
+    {
+        name: 'Adam',
+        subjects: ['science', 'maths', 'art'],
+        teacher: {science: 'Iris', maths: 'Harry', art: 'Simon'},
+        results: {science: 84, maths: 97, art: 95},
+    },
+    {
+        name: 'Fran',
+        subjects: ['science', 'english', 'art'],
+        teacher: {science: 'Iris', english: 'Joan', art: 'Simon'},
+        results: {science: 67, english: 87, art: 95},
+    }
+];
+
+const topMaths = challengeStudents.filter(itm => itm.results.maths >= 90);
+console.log(topMaths);
+
+
+//.  ******************* Reduce Method ************************///
+
+const numbers = [0, 1, 2, 3, 4];
+
+let sum1 = numbers.reduce((acc, curr) => {
+
+console.log(
+    "Accumulator:", acc,
+    "Cuurent Value:", curr,
+    "Total:", acc + curr
+);
+return acc + curr;
+});
+console.log(sum1);
+
+
+
+//2nd example it will run 5 times instead of 4///
+
+
+const values = [0, 1, 2, 3, 4];
+
+let sum5 = numbers.reduce((acc, curr) => {
+
+console.log(
+    "Accumulator:", acc,
+    "Cuurent Value:", curr,
+    "Total:", acc + curr
+);
+return acc + curr;
+}, 0);
+console.log(sum5);
+
+// or it could be like this ///
+
+const given = [0, 1, 2, 3, 4];
+
+let sum6 = numbers.reduce((acc, curr) => {
+
+console.log(
+    "Accumulator:", acc,
+    "Cuurent Value:", curr,
+    "Total:", acc + curr
+);
+return acc + curr;
+}, 10);
+console.log(sum6);
+
+
+//. Totaling a specific object property //
+
+const teamMembers = [
+
+    { 
+        name: "Kulwinder Singh",
+        profession: "developer",
+        yearsExperience: 1
+    },
+
+    {
+        name: "Veer Singh",
+        profession: "developer",
+        yearsExperience: 0
+
+    },
+
+    {
+        name: "Mimi Singh",
+        profession: "designer",
+        yearsExperience: 1
+
+    },
+    {
+        name: "Sameer Singh",
+        profession: "designer",
+        yearsExperience: 1
+
+    },
+    {
+        name: "Sulakshna Singh",
+        profession: "Manager",
+        yearsExperience: 10
+
+    }
+];
+
+let totalExperience = teamMembers.reduce((acc, curr) => acc + curr.yearsExperience, 0);
+
+console.log(totalExperience);
+
+// Grouping by a property and totaling it too //
+// {Devloper: , Designer: } <-- this is what I want //
+
+let experienceByProfession = teamMembers.reduce((acc, curr) => {
+    let key = curr.profession;
+    if (!acc[key]) {
+        acc[key] = curr.yearsExperience;
+    } else {
+        acc[key] += curr.yearsExperience; 
+    };
+    return acc;
+
+},   {});
+
+console.log(experienceByProfession);
